@@ -1,0 +1,9 @@
+1) H1 manda arp ad H2 ma H2 non gli risponde e non mette nulla nella tabella arp
+
+
+viceversa
+
+2) H2 manda gli echo request in broadcast (senza mandare gli arp in quanto crede che sia broadcast)
+H1 non sa il mac di H2 perchè non se l'era salvato perchè arrivava come broadcast e quindi manda arp request verso H2 che non gli risponde perchè H1 è la rete e non un elemento
+
+screen -> Istantanea_2018-04-09_22-27-16.png
