@@ -37,8 +37,8 @@ F = abs(fft(data_, length(f))).^2;
 plot(f, fftshift(F))
 
 
-N=var(err);
-S=var(data_);
+N=var(err)
+S=var(data_)
 
 10*log10(S/N)
 
