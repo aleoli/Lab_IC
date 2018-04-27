@@ -11,8 +11,8 @@
 #    	gnuplot home:     http://www.gnuplot.info
 #    	faq, bugs, etc:   type "help FAQ"
 #    	immediate help:   type "help"  (plot window: hit 'h')
-# set terminal x11 
-# set output
+# set terminal png nocrop font "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf,12" fontscale 1.0 size 600,400 
+# set output 'server_seqno.png'
 unset clip points
 set clip one
 unset clip two
@@ -43,7 +43,10 @@ set format z "% g"
 set format cb "% g"
 set format r "% g"
 set angles radians
-unset grid
+set grid nopolar
+set grid xtics nomxtics ytics nomytics noztics nomztics \
+ nox2tics nomx2tics noy2tics nomy2tics nocbtics nomcbtics
+set grid layerdefault   linetype 0 linewidth 1.000,  linetype 0 linewidth 1.000
 set raxis
 set key title ""
 set key inside right top vertical Right noreverse enhanced autotitles nobox
@@ -120,7 +123,7 @@ set x2label ""
 set x2label  offset character 0, 0, 0 font "" textcolor lt -1 norotate
 set xrange [ * : * ] noreverse nowriteback
 set x2range [ * : * ] noreverse nowriteback
-set ylabel "seq_no Server" 
+set ylabel "Server Sequence Number" 
 set ylabel  offset character 0, 0, 0 font "" textcolor lt -1 rotate by -270
 set y2label "" 
 set y2label  offset character 0, 0, 0 font "" textcolor lt -1 rotate by -270
@@ -151,5 +154,5 @@ set fontpath
 set psdir
 set fit noerrorvariables noprescale
 GNUTERM = "x11"
-plot "server_seqno.dat" with linespoint
+plot "server_seqno.txt" with linespoint
 #    EOF
