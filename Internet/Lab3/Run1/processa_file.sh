@@ -27,3 +27,17 @@ paste server.time.txt server.seqno.txt > server_seqno.txt
 paste server.time.txt server.ackno.txt > server_ackno.txt
 paste server.time.txt server.rwin.txt > server_rwin.txt
 paste server.time.txt server.len.txt > server_len.txt
+
+
+gnuplot client_seqno.plt
+gnuplot client_ackno.plt
+gnuplot client_rwin.plt
+gnuplot client_len.plt
+
+
+gnuplot server_seqno.plt
+gnuplot server_ackno.plt
+gnuplot server_rwin.plt
+gnuplot server_len.plt
+
+
