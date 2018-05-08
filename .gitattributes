@@ -1,3 +1,2 @@
 client_to_server.txt filter=lfs diff=lfs merge=lfs -text
 server_to_client.txt filter=lfs diff=lfs merge=lfs -text
-*.png filter=lfs diff=lfs merge=lfs -text
