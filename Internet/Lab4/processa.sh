@@ -13,3 +13,6 @@ paste time.tmp port.tmp > 4_port.txt
 paste time_b.tmp port_b.tmp > 4_b_port.txt
 
 rm -rf *.tmp
+
+gnuplot a.plt
+gnuplot b.plt
