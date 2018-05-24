@@ -1,0 +1,5 @@
+il CPU-Mbin/s è la velocità che secondo lui ci ha messo a generare i dati (se la calcola dagli altri dati)
+
+Calls -> numero di volte che ha chiamato "send_to", che ha parlato col tcp
+	al ricevitore è più grande -> c'è un while ci sono dati invece che un for
+	-> il tcp frammenta come gli pare
