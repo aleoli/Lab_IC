@@ -2,7 +2,7 @@ clear all
 close all
 
 %[data,Fs]=audioread('Audio/Sinfonia n. 5 (Beethoven) Il Destino bussa alla porta.mp3');
-[data,Fs]=audioread('Parlato.m4a');
+[data,Fs]=audioread('Audio/KDE_Startup.wav');
 data=data(:,1)';
 
 V = max(abs(data));
