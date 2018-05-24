@@ -3,3 +3,15 @@ il CPU-Mbin/s è la velocità che secondo lui ci ha messo a generare i dati (se 
 Calls -> numero di volte che ha chiamato "send_to", che ha parlato col tcp
 	al ricevitore è più grande -> c'è un while ci sono dati invece che un for
 	-> il tcp frammenta come gli pare
+
+se guardi le catture (in tcp) ci sono due connessioni, una che ha dimensione pri ai dati scambiati, l'altra è una connessione di controllo dell'applicazione -> si mettono d'accordo sulla quantita di dati, sul tempo, misure del server, ecc
+
+
+al ricevitore il tempo calcolato è più affidabile rispetto a quello al rasmettitore
+
+
+UDP
+in udp le calls sono il numero +3 e ne riceve n +1
+
+il +3 è perchè negli ultimi 3 pacchetti udp mette la chiusura della connessione, lo manda 3 volte per essere abbastanza sicuri che arrivi
+il client al primo che riceve ferma il cronometro e manda indietro sulla connessione tcp di controllo i risultati
