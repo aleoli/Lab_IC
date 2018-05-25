@@ -5,9 +5,9 @@ sed -i "s/^/ /g" server_to_client.txt
 
 cat client_to_server.txt | grep -v Source | tr -s ' ' | cut -d' ' -f 3 > client.time.txt
 cat client_to_server.txt | grep -v Source | cut -d'=' -f 2 | cut -d' ' -f 1 > client.seqno.txt
-cat client_to_server.txt | grep -v Source | cut -d'=' -f 3 | cut -d' ' -f 1 > client.ackno.txt
-cat client_to_server.txt | grep -v Source | cut -d'=' -f 4 | cut -d' ' -f 1 > client.rwin.txt
-cat client_to_server.txt | grep -v Source | cut -d'=' -f 5 | cut -d' ' -f 1 > client.len.txt
+cat client_to_server.txt | grep -v Source | cut -d'=' -f 3 | cut -d' ' -f 1 > client.ackno.txt.tmp
+cat client_to_server.txt | grep -v Source | cut -d'=' -f 4 | cut -d' ' -f 1 > client.rwin.txt.tmp
+cat client_to_server.txt | grep -v Source | cut -d'=' -f 5 | cut -d' ' -f 1 > client.len.txt.tmp
 
 
 cat server_to_client.txt | grep -v Source | tr -s ' ' | cut -d' ' -f 3 > server.time.txt
@@ -15,6 +15,19 @@ cat server_to_client.txt | grep -v Source | cut -d'=' -f 2 | cut -d' ' -f 1 > se
 cat server_to_client.txt | grep -v Source | cut -d'=' -f 3 | cut -d' ' -f 1 > server.ackno.txt
 cat server_to_client.txt | grep -v Source | cut -d'=' -f 4 | cut -d' ' -f 1 > server.rwin.txt
 cat server_to_client.txt | grep -v Source | cut -d'=' -f 5 | cut -d' ' -f 1 > server.len.txt
+
+
+# al primo pacchetto manca l'ack e quindi mi prende la lunghezza sbagliata
+echo 0 > client.len.txt
+tail client.len.txt.tmp -n +2 >> client.len.txt
+
+echo 0 > client.ackno.txt
+tail client.ackno.txt.tmp -n +2 >> client.ackno.txt
+
+echo 0 > client.rwin.txt.tmp
+tail client.rwin.txt.tmp -n +2 >> client.rwin.txt
+
+rm -rf *.tmp
 
 
 paste client.time.txt client.seqno.txt > client_seqno.txt
