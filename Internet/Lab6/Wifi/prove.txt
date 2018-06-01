@@ -1,0 +1,6 @@
+H1(10.0.27.3) wifi Raspberry eth H2(192.168.2.1)
+
+A - singolo flusso H1 -> H2
+B - flusso doppio
+
+-> nel B misto H1 manda in TCP e H2 in UDP
