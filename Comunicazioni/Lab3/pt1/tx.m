@@ -1,25 +1,31 @@
 clear all
 close all
 
-%[data,Fs]=audioread('../Lab1/Audio/KDE_Startup.wav');
-%data=data(:,1)';
-Fs = 44100;
-
-size = 0;
-FID = fopen('testo.txt');
-while (~feof(FID))
-    riga = fgetl(FID);
-    data((size+1):(size+length(riga))) = riga;
-    size = size + length(riga) + 1;
-    %data((size-1):size) = "\n";
+testo = 1;
+if testo
+    Fs = 44100;
+    
+    size = 0;
+    FID = fopen('testo.txt');
+    while (~feof(FID))
+        riga = fgetl(FID);
+        data((size+1):(size+length(riga))) = riga;
+        size = size + length(riga) + 1;
+        %data((size-1):size) = "\n";
+    end
+    fclose(FID);
+    %data = compose(data);
+    data = double(data);
+else
+    [data,Fs]=audioread('../../Lab1/Audio/KDE_Startup.wav');
+    data=data(:,1)';
+    sound(data, Fs);
+    %save sound.rm data -ascii -double
 end
-fclose(FID);
-%data = compose(data);
-data = double(data);
 
 
-V = 256; %max(abs(data));
-nbit = 9;
+V = max(abs(data));
+nbit = 8;
 M=2^nbit;
 DeltaV = 2*V/M;
 Tc = 1/Fs;
@@ -61,4 +67,9 @@ v_t_mod = f_cos .* v_t;
 figure(2)
 plot(1:length(v_t_mod), fftshift(abs(fft(v_t_mod))))
 
-save testo.rm v_t_mod -ascii -double
+if testo
+    save testo.rm v_t_mod -ascii -double
+else
+    audio_orig = data;
+    save audio.rm v_t_mod -ascii -double
+end

@@ -1,9 +1,12 @@
-Fc = 44100;
+Fc = 44100/2;
 Tc = 1/Fc;
 SpS = 100;
 
-%in = load('audio.rm')';
-in = load('testo.rm');
+if testo
+    in = load('testo.rm');
+else
+    in = load('audio.rm');
+end
 
 figure(1)
 plot(1:length(in), fftshift(abs(fft(in))))
@@ -12,6 +15,9 @@ plot(1:length(in), fftshift(abs(fft(in))))
 f0 = 10000;
 f_cos = cos(2*pi*f0*[0:Tc:(Tc*length(in) - Tc)]);
 data_dem = f_cos .* in;
+
+figure(2)
+plot(1:length(data_dem), fftshift(abs(fft(data_dem))))
 
 s_t = zeros(length(data_dem), 1);
 for a=1:SpS
@@ -24,7 +30,7 @@ Y_f = H_rx' .* X_f;
 y = ifft(Y_f);
 
 
-figure(2)
+figure(3)
 plot(1:length(Y_f), fftshift(abs(Y_f)))
 
 
@@ -35,9 +41,13 @@ n_simboli = length(data)/nbit;
 index_out = zeros(1, n_simboli);
 sig_out = zeros(1, n_simboli);
 for a=1:n_simboli
-    data(((a-1)*nbit+1):(a*nbit))
     index_out(a) = bi2de(data(((a-1)*nbit+1):(a*nbit)));
     sig_out(a) = codebook(index_out(a)+1);
 end
 
-char(sig_out)
+if testo
+    char(sig_out)
+else
+    sound(sig_out, Fc);
+    err = audio_orig - sig_out;
+end
