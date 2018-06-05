@@ -3,8 +3,11 @@ NsBlock=1024;
 
 Nblocks=100;
 
-f_inizio = 87.6e6;
-f_fine = 107.9e6;
+f_inizio = 925e6;  % downlink
+f_fine = 960e6;
+
+%f_inizio = 880e6;  % uplink
+%f_fine = 915e6;
 
 spettro = zeros(round(((f_fine-f_inizio)/fc)*NsBlock), 1);
 
