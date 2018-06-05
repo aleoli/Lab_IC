@@ -3,7 +3,7 @@ close all
 
 testo = 1;
 if testo
-    Fs = 44100;
+    Fs = 44100/2;
     
     size = 0;
     FID = fopen('testo.txt');
@@ -58,17 +58,18 @@ for a=0:w_dim(2)-1
 end
 
 figure(1)
-plot(1:length(v_t), fftshift(abs(fft(v_t))))
+plot(1:length(v_t), fftshift(abs(fft(v_t)).^2))
 
 f0 = 10000;
 f_cos = cos(2*pi*f0*[0:Tc:(Tc*length(v_t) - Tc)]);
 v_t_mod = f_cos .* v_t;
 
 figure(2)
-plot(1:length(v_t_mod), fftshift(abs(fft(v_t_mod))))
+plot(1:length(v_t_mod), fftshift(abs(fft(v_t_mod)).^2))
 
 if testo
     save testo.rm v_t_mod -ascii -double
+    testo_orig = v_t(1:SpS:end);
 else
     audio_orig = data;
     save audio.rm v_t_mod -ascii -double

@@ -29,7 +29,7 @@ for f0 = f_inizio:fc:f_fine
     tmp_2 = zeros(NsBlock, 1);
     for c = 0:(Nblocks-1)
         tmp = x_saved((c*NsBlock+1):((c+1)*NsBlock));
-        tmp_2 = tmp_2 + fft(tmp);
+        tmp_2 = tmp_2 + abs(fft(tmp)).^2;
     end
     
     spettro((conta*NsBlock+1):((conta+1)*NsBlock)) = fftshift(tmp_2/Nblocks);
