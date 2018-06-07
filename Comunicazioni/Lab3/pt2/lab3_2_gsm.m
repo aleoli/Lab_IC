@@ -1,7 +1,7 @@
 fc = 1e6;
 NsBlock=1024;
 
-Nblocks=100;
+Nblocks=1;
 
 f_inizio = 925e6;  % downlink
 f_fine = 960e6;
@@ -35,7 +35,7 @@ for f0 = f_inizio:fc:f_fine
         tmp_2 = tmp_2 + abs(fft(tmp)).^2;
     end
     
-    spettro((conta*NsBlock+1):((conta+1)*NsBlock)) = fftshift(tmp_2/Nblocks);
+    spettro((conta*NsBlock+1):((conta+1)*NsBlock)) = 10*log(fftshift(tmp_2/Nblocks));
     
     conta = conta+1;
 end

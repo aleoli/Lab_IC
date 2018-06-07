@@ -23,8 +23,8 @@ release(hRadio);
 x_saved_fft = zeros(Nblocks*NsBlock,1);
 tmp_2 = zeros(NsBlock);
 for c = 0:(Nblocks-1)
-    tmp = abs(x_saved((c*NsBlock+1):((c+1)*NsBlock))).^2;
-    x_saved_fft((c*NsBlock+1):((c+1)*NsBlock)) = fft(tmp);
+    tmp = x_saved((c*NsBlock+1):((c+1)*NsBlock));
+    x_saved_fft((c*NsBlock+1):((c+1)*NsBlock)) = abs(fft(tmp)).^2;
     tmp_2 = tmp_2 + x_saved_fft((c*NsBlock+1):((c+1)*NsBlock));
 end
 
@@ -34,12 +34,12 @@ df = SampleRate/length(tmp_2);
 ff = (CenterFrequency-SampleRate/2):df:(CenterFrequency+SampleRate/2-df);
 
 figure(1)
-plot(ff, fftshift(tmp_2))
+plot(ff, 10*log(fftshift(tmp_2)))
 
 
 df = SampleRate/length(x_saved);
 ff = (CenterFrequency-SampleRate/2):df:(CenterFrequency+SampleRate/2-df);
 
 figure(2)
-plot(ff, fftshift(fft(x_saved)).^2)
+plot(ff, 10*log(fftshift(fft(x_saved)).^2))
 
