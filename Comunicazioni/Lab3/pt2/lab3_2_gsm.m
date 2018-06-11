@@ -1,7 +1,7 @@
 fc = 1e6;
 NsBlock=1024;
 
-Nblocks=1;
+Nblocks=100;
 
 f_inizio = 925e6;  % downlink
 f_fine = 960e6;
