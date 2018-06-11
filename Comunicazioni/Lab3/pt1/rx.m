@@ -1,4 +1,4 @@
-Fc = 44100/2;
+Fc = 44100/4;
 Tc = 1/Fc;
 
 if testo
@@ -37,7 +37,7 @@ if testo
     eyediagram(y(1:2000*SpS), 2*SpS, 2*SpS);
 end
 
-data = y(1:SpS:end) > 0.5;
+data = y(1:SpS:end) > 0.5; %SOGLIA
 
 % binario to decimale
 n_simboli = length(data)/nbit;
