@@ -1,9 +1,9 @@
 clear all
 close all
 
-testo = 1;
+testo = 0;
 if testo
-    Fs = 44100/4;
+    Fs = 44100/2;
     
     size = 0;
     FID = fopen('testo.txt');
@@ -21,6 +21,11 @@ else
     data=data(:,1)';
     sound(data, Fs);
     %save sound.rm data -ascii -double
+    
+    % companding
+    mu = 255;
+    data = compand(data, mu, max(abs(data)), 'mu/compressor');
+    
 end
 
 
@@ -29,16 +34,12 @@ nbit = 8;  %CAMPIONAMENTO SU 8 BIT. CON MENO BIT ALCUNI CARATTERI CADREBBERO NEL
 M=2^nbit; %N livelli
 DeltaV = 2*V/M;
 Tc = 1/Fs;
-SpS = 100;
+SpS = 110;
 Fc = Fs;
 Rs = Fc/SpS;
-%B = 1/(2*Tc);
+B = 1/(Tc);
 
 %data_ = data*(1/V);
-
-f0 = 10000;
-f_cos = cos(2*pi*f0*[0:Tc:(Tc*length(data) - Tc)]);
-data_mod = f_cos .* data;
 
 partition=[-V+DeltaV:DeltaV:V-DeltaV];  %QUANTIZZAZIONE
 codebook=[-V+DeltaV:DeltaV:V];
@@ -57,15 +58,18 @@ for a=0:w_dim(2)-1
     end
 end
 
-figure(1)
-plot(1:length(v_t), fftshift(abs(fft(v_t)).^2))
+d_f = Fs/length(v_t);
+f = (-B/2):d_f:(B/2-d_f);
 
-f0 = 10000; %A METï¿½ TRA 20 E 20000
+figure(1)
+plot(f, fftshift(abs(fft(v_t)).^2))
+
+f0 = 10000; %A METà TRA 20 E 20000
 f_cos = cos(2*pi*f0*[0:Tc:(Tc*length(v_t) - Tc)]);
 v_t_mod = f_cos .* v_t;
 
 figure(2)
-plot(1:length(v_t_mod), fftshift(abs(fft(v_t_mod)).^2))
+plot(f, fftshift(abs(fft(v_t_mod)).^2))
 
 if testo
     save testo.rm v_t_mod -ascii -double %SALVO SEGNALE MODULATO

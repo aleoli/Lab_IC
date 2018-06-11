@@ -1,4 +1,4 @@
-Fc = 44100/4;
+Fc = 44100/2;
 Tc = 1/Fc;
 
 if testo
@@ -7,8 +7,11 @@ else
     in = load('audio.rm');
 end
 
+d_f = Fs/length(in);
+f = (-B/2):d_f:(B/2-d_f);
+
 figure(1)
-plot(1:length(in), fftshift(abs(fft(in)).^2))
+plot(f, fftshift(abs(fft(in)).^2))
 
 % demodulazione
 f0 = 10000;
@@ -16,7 +19,7 @@ f_cos = cos(2*pi*f0*[0:Tc:(Tc*length(in) - Tc)]);
 data_dem = f_cos .* in;
 
 figure(2)
-plot(1:length(data_dem), fftshift(abs(fft(data_dem)).^2))
+plot(f, fftshift(abs(fft(data_dem)).^2))
 
 s_t = zeros(length(data_dem), 1);
 for a=1:SpS
@@ -30,7 +33,7 @@ y = ifft(Y_f);
 
 
 figure(3)
-plot(1:length(Y_f), fftshift(abs(Y_f).^2))
+plot(f, fftshift(abs(Y_f).^2))
 
 if testo
     % dal diagramma ad occhio si vede che bisogna campionare sul primo bit
@@ -51,6 +54,10 @@ end
 if testo
     char(sig_out)
 else
+    
+    % companding
+    sig_out = compand(sig_out, mu, max(abs(data)), 'mu/expander');
+    
     sound(sig_out, Fc);
     err = audio_orig - sig_out;
 end
