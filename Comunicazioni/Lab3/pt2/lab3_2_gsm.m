@@ -35,7 +35,7 @@ for f0 = f_inizio:fc:f_fine
         tmp_2 = tmp_2 + abs(fft(tmp)).^2;
     end
     
-    spettro((conta*NsBlock+1):((conta+1)*NsBlock)) = 10*log(fftshift(tmp_2/Nblocks));
+    spettro((conta*NsBlock+1):((conta+1)*NsBlock)) = 10*log10(fftshift(tmp_2/Nblocks));
     
     conta = conta+1;
 end

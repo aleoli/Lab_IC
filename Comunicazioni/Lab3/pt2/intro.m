@@ -34,12 +34,12 @@ df = SampleRate/length(tmp_2);
 ff = (CenterFrequency-SampleRate/2):df:(CenterFrequency+SampleRate/2-df);
 
 figure(1)
-plot(ff, 10*log(fftshift(tmp_2)))
+plot(ff, 10*log10(fftshift(tmp_2)))
 
 
 df = SampleRate/length(x_saved);
 ff = (CenterFrequency-SampleRate/2):df:(CenterFrequency+SampleRate/2-df);
 
 figure(2)
-plot(ff, 10*log(fftshift(fft(x_saved)).^2))
+plot(ff, 10*log10(fftshift(fft(x_saved)).^2))
 
