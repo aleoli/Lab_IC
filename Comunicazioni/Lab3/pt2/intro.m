@@ -19,7 +19,6 @@ end
 
 release(hRadio);
 
-
 x_saved_fft = zeros(Nblocks*NsBlock,1);
 tmp_2 = zeros(NsBlock);
 for c = 0:(Nblocks-1)

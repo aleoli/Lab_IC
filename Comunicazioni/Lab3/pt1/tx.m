@@ -3,7 +3,7 @@ close all
 
 testo = 1;
 if testo
-    Fs = 44100/2;
+    Fs = 44100/4;
     
     size = 0;
     FID = fopen('testo.txt');
