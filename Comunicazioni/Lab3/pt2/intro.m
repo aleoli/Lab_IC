@@ -1,8 +1,8 @@
 CenterFrequency=92.1e6;
-SampleRate=1e6;
+SampleRate=2e6;
 NsBlock=1024;
 
-Nblocks=1000;
+Nblocks=10000;
 
 hRadio = comm.SDRRTLReceiver('CenterFrequency', CenterFrequency, 'EnableTunerAGC', true, 'SamplesPerFrame', NsBlock, 'OutputDataType', 'single');
 
@@ -19,12 +19,12 @@ end
 
 release(hRadio);
 
-x_saved_fft = zeros(Nblocks*NsBlock,1);
-tmp_2 = zeros(NsBlock);
+x_saved_fft = zeros(NsBlock,1);
+tmp_2 = zeros(NsBlock,1);
 for c = 0:(Nblocks-1)
     tmp = x_saved((c*NsBlock+1):((c+1)*NsBlock));
-    x_saved_fft((c*NsBlock+1):((c+1)*NsBlock)) = abs(fft(tmp)).^2;
-    tmp_2 = tmp_2 + x_saved_fft((c*NsBlock+1):((c+1)*NsBlock));
+    x_saved_fft= abs(fft(tmp)).^2;
+    tmp_2 = tmp_2 + x_saved_fft;
 end
 
 tmp_2 = tmp_2/Nblocks;

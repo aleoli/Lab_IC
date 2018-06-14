@@ -1,7 +1,7 @@
 fc = 1e6;
 NsBlock=1024;
 
-Nblocks=100;
+Nblocks=1000;
 
 f_inizio = 87.6e6;
 f_fine = 107.9e6;
