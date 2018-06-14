@@ -1,7 +1,7 @@
 clear all
 close all
 
-testo = 0;
+testo = 1;
 if testo
     Fs = 44100/2;
     
@@ -34,7 +34,7 @@ nbit = 8;  %CAMPIONAMENTO SU 8 BIT. CON MENO BIT ALCUNI CARATTERI CADREBBERO NEL
 M=2^nbit; %N livelli
 DeltaV = 2*V/M;
 Tc = 1/Fs;
-SpS = 110;
+SpS = 200;
 Fc = Fs;
 Rs = Fc/SpS;
 B = 1/(Tc);
