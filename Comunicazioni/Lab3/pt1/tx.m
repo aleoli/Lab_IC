@@ -1,7 +1,7 @@
 clear all
 close all
 
-testo = 1;
+testo = 0;
 if testo
     Fs = 44100/2;
     
@@ -34,7 +34,7 @@ nbit = 8;  %CAMPIONAMENTO SU 8 BIT. CON MENO BIT ALCUNI CARATTERI CADREBBERO NEL
 M=2^nbit; %N livelli
 DeltaV = 2*V/M;
 Tc = 1/Fs;
-SpS = 200;
+SpS = 5;
 Fc = Fs;
 Rs = Fc/SpS;
 B = 1/(Tc);
@@ -72,9 +72,11 @@ figure(2)
 plot(f, fftshift(abs(fft(v_t_mod)).^2))
 
 if testo
-    save testo.rm v_t_mod -ascii -double %SALVO SEGNALE MODULATO
+    %save testo.rm v_t_mod -ascii -double %SALVO SEGNALE MODULATO
     testo_orig = v_t(1:SpS:end);
+    audiowrite('testo.wav', (v_t_mod+1)/2, Fs);
 else
-    audio_orig = data;
-    save audio.rm v_t_mod -ascii -double
+    audio_orig = v_t(1:SpS:end);
+    %save audio.rm v_t_mod -ascii -double
+    audiowrite('audio.wav', (v_t_mod+1)/2, Fs);
 end

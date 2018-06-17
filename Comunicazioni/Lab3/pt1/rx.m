@@ -2,9 +2,12 @@ Fc = 44100/2;
 Tc = 1/Fc;
 
 if testo
-    in = load('testo.rm');
+    %in = load('testo.rm');
+    [in,Fs] = audioread('testo.wav');
+    in = (in*2 - 1)';
 else
-    in = load('audio.rm');
+    [in,Fs] = audioread('audio.wav');
+    in = (in*2 - 1)';
 end
 
 d_f = Fs/length(in);
@@ -35,10 +38,10 @@ y = ifft(Y_f);
 figure(3)
 plot(f, fftshift(abs(Y_f).^2))
 
-if testo
+%if testo
     % dal diagramma ad occhio si vede che bisogna campionare sul primo bit
     eyediagram(y(1:2000*SpS), 2*SpS, 2*SpS);
-end
+%end
 
 data = y(1:SpS:end) > 0.5; %SOGLIA
 
@@ -53,11 +56,14 @@ end
 
 if testo
     char(sig_out)
+    err = testo_orig - data;
 else
     
     % companding
     sig_out = compand(sig_out, mu, max(abs(data)), 'mu/expander');
     
     sound(sig_out, Fc);
-    err = audio_orig - sig_out;
+    err = audio_orig - data;
 end
+
+errors = sum(err)
